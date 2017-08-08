@@ -1,5 +1,7 @@
 import React,  { Component } from 'react';
 import { Link } from 'react-router-dom';
+import {connect} from 'react-redux';
+import {updateHistory} from './../../ducks/reducer';
 
 class WizardEight extends Component {
 
@@ -9,10 +11,10 @@ class WizardEight extends Component {
                     <div className="vert-align">                    
                         <p>Have you had a bankruptcy or foreclosure in the past seven years? </p><br />
                     <div className="row">
-                        <Link to="/wNine"><button value="Has never been in bankruptcy" onClick={this.props.updateHistory}>No</button></Link>
-                        <Link to="/wNine"><button value="Has had bankruptcy before" onClick={this.props.updateHistory}>Bankruptcy</button></Link>
-                        <Link to="/wNine"><button value="Has had a foreclosure before" onClick={this.props.updateHistory}>Foreclosure</button></Link>
-                        <Link to="/wNine"><button value="Has had both a foreclosure and a bankruptcy" onClick={this.props.updateHistory}>Both</button></Link>
+                        <Link to="/wNine"><button value="Has never been in bankruptcy" onClick={(e)=>this.props.updateHistory('No')}>No</button></Link>
+                        <Link to="/wNine"><button value="Has had bankruptcy before" onClick={(e)=>this.props.updateHistory('Bankruptcy')}>Bankruptcy</button></Link>
+                        <Link to="/wNine"><button value="Has had a foreclosure before" onClick={(e)=>this.props.updateHistory('Foreclosure')}>Foreclosure</button></Link>
+                        <Link to="/wNine"><button value="Has had both a foreclosure and a bankruptcy" onClick={(e)=>this.props.updateHistory('Both')}>Both</button></Link>
                     </div>
                 </div>
             </div>
@@ -20,4 +22,10 @@ class WizardEight extends Component {
     }
 }
 
-export default WizardEight;
+function mapStateToProps(state){
+    return {
+        history: state.history
+    }
+}
+
+export default connect(mapStateToProps, {updateHistory})(WizardEight);
